@@ -43,7 +43,7 @@ public interface ReactivePersonRepository extends ReactiveCrudRepository<Person,
 	 * @param lastname
 	 * @return
 	 */
-	@Query("{ 'firstname': ?0, 'lastname': ?1}")
+	@Query("{ 'firstname': ?#{authentication.name}, 'lastname': ?1}")
 	Mono<Person> findByFirstnameAndLastname(String firstname, String lastname);
 
 	/**

@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
+import org.springframework.security.test.context.support.WithMockUser;
 
 /**
  * Integration test for {@link ReactivePersonRepository} using Project Reactor types and operators.
@@ -144,9 +145,10 @@ class ReactivePersonRepositoryIntegrationTest {
 	/**
 	 * Fetch data using a string query.
 	 */
+	@WithMockUser(username = "Walter")
 	@Test
 	void shouldQueryDataWithStringQuery() {
-		repository.findByFirstnameAndLastname("Walter", "White").as(StepVerifier::create).expectNextCount(1)
+		repository.findByFirstnameAndLastname((String) null, "White").as(StepVerifier::create).expectNextCount(1)
 				.verifyComplete();
 	}
 
